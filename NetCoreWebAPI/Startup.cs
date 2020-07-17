@@ -46,8 +46,8 @@ namespace NetCoreWebAPI
                 //设置swagger文档相关信息
                 s.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    Title = "NewarePassPort WebApi文档",
-                    Description = "新威账户体系接口文档",
+                    Title = "WebApi文档",
+                    Description = "接口文档",
                     Version = "v1.0"
                 });
                 s.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
@@ -79,7 +79,7 @@ namespace NetCoreWebAPI
                 var xmlPath = System.IO.Path.Combine(AppContext.BaseDirectory, xmlFile);
                 // 启用xml注释
                 s.IncludeXmlComments(xmlPath, true); //添加控制器层注释（true表示显示控制器注释）
-                var xmlModelPath = Path.Combine(AppContext.BaseDirectory, "NetCoreWebAPI.Entity.xml");
+                var xmlModelPath = Path.Combine(AppContext.BaseDirectory, "");
                 s.IncludeXmlComments(xmlModelPath, true);
             });
             #endregion

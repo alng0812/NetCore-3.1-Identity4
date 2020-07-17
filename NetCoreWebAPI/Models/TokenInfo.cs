@@ -22,10 +22,5 @@ namespace NetCoreWebAPI.Models
 
         //授权范围
         public string Scope { get; set; }
-
-        /// <summary>
-        /// 加密Key
-        /// </summary>
-        public const string SecretKey = "NewWare2020";
     }
 }

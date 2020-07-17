@@ -48,7 +48,8 @@ namespace QuickstartIdentityServer
         /// <returns></returns>
         public static IEnumerable<Client> GetClientConfigList()
         {
-            var appInfo = Account.Instance.GetApps();
+            //从数据库获取配置文件
+            var appInfo = GetApps();
             List<Client> Clients = new List<Client>();
             foreach (var item in appInfo)
             {

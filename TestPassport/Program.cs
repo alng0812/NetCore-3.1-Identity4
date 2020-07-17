@@ -95,7 +95,7 @@ namespace TestPassport
             TokenModel tokenmodel = new TokenModel
             {
                 ClientId = "Client",
-                ClientSecret = "NewareAI",
+                ClientSecret = "sercet",
                 Scope = "api"
             };
             //string data = "{\"ClientId\" : \"Client\",\"ClientSecret\" : \"NewareAI\",\"Scope\" : \"api\"}";
@@ -136,7 +136,7 @@ namespace TestPassport
             {
                 Address = disco.TokenEndpoint,//就是我们postman请求token的地址
                 ClientId = "Client",//客户端
-                ClientSecret = "NewareAI",//秘钥
+                ClientSecret = "sercet",//秘钥
                 Scope = "api"//请求的api
             });
             if (tokenResponse.IsError)
@@ -195,7 +195,7 @@ namespace TestPassport
             {
                 Address = disco.TokenEndpoint,//
                 ClientId = "Client",//客户端
-                ClientSecret = "NewareAI",//秘钥
+                ClientSecret = "sercet",//秘钥
                 Scope = "api"//请求的api
             });
             if (tokenResponse.IsError)
