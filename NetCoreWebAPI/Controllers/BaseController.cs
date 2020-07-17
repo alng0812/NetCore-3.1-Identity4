@@ -9,9 +9,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using NewarePassPort.Common;
-using NewWarePassPort.Business;
+using NetCoreWebAPI.Business;
 
-namespace NewWarePassPort.Controllers
+namespace NetCoreWebAPI.Controllers
 {
     /// <summary>
     /// 基础控制器

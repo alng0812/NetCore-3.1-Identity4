@@ -19,7 +19,7 @@
     }
   },
   "profiles": {
-    "NewWarePassPort": {
+    "NetCoreWebAPI": {
       "commandName": "Project",
       "applicationUrl": "http://localhost:5001"
     },

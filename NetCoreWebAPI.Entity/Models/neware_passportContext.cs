@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Configuration;
 
-namespace NewWarePassPort.Entity.Models
+namespace NetCoreWebAPI.Entity.Models
 {
     public partial class neware_passportContext : DbContext
     {

@@ -2,11 +2,11 @@
 using Microsoft.AspNetCore.Mvc;
 using NewarePassPort.Common;
 using NewarePassPort.Common.Enums;
-using NewWarePassPort.Business;
-using NewWarePassPort.Models;
+using NetCoreWebAPI.Business;
+using NetCoreWebAPI.Models;
 using System;
 using System.Collections.Generic;
-namespace NewWarePassPort.Controllers
+namespace NetCoreWebAPI.Controllers
 {
     /// <summary>
     /// 登录控制器

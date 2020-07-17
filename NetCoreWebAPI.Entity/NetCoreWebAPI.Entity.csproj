@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\NewarePassPort.Common\NewarePassPort.Common.csproj" />
+    <ProjectReference Include="..\NetCoreWebAPI.Common\NetCoreWebAPI.Common.csproj" />
   </ItemGroup>
 
 </Project>

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace NewWarePassPort.Models
+namespace NetCoreWebAPI.Models
 {
     /// <summary>
     /// 获取Token参数

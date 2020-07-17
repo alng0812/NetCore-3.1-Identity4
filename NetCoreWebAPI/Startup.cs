@@ -17,10 +17,10 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using NewarePassPort.Common;
-using NewWarePassPort.Entity.Models;
+using NetCoreWebAPI.Entity.Models;
 using ILoggerFactory = log4net.Repository.Hierarchy.ILoggerFactory;
 
-namespace NewWarePassPort
+namespace NetCoreWebAPI
 {
     public class Startup
     {
@@ -79,7 +79,7 @@ namespace NewWarePassPort
                 var xmlPath = System.IO.Path.Combine(AppContext.BaseDirectory, xmlFile);
                 // 启用xml注释
                 s.IncludeXmlComments(xmlPath, true); //添加控制器层注释（true表示显示控制器注释）
-                var xmlModelPath = Path.Combine(AppContext.BaseDirectory, "NewWarePassPort.Entity.xml");
+                var xmlModelPath = Path.Combine(AppContext.BaseDirectory, "NetCoreWebAPI.Entity.xml");
                 s.IncludeXmlComments(xmlModelPath, true);
             });
             #endregion

@@ -16,14 +16,6 @@ PublishProfiles/
 
 
 # others
-compilerconfig.json.defaults
 
 *.bak
-_publish/
-/SBO.Web.Api/Log/WeChatError
-/SBO.Web.Api/Log/WeChatRequest
-/SBO.Web.Api/NoticeNotDiningUser
-/SBO.Web.Api/topsdk_1.log
-/SBO.Web.Api/log/NoticeNotDiningUser
-/SBO.Web.Api/log/Redis
 

@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using NewarePassPort.Common;
 using NewarePassPort.Common.Enums;
-using NewWarePassPort.Business;
-using NewWarePassPort.Entity.Models;
-using NewWarePassPort.Models;
+using NetCoreWebAPI.Business;
+using NetCoreWebAPI.Entity.Models;
+using NetCoreWebAPI.Models;
 using System;
-namespace NewWarePassPort.Controllers
+namespace NetCoreWebAPI.Controllers
 {
     public class AccountController : BaseController
     {

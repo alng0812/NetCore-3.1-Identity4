@@ -1,6 +1,6 @@
 ﻿using NewarePassPort.Common.Enums;
 
-namespace NewWarePassPort.Models
+namespace NetCoreWebAPI.Models
 {
     public class ApiResult
     {

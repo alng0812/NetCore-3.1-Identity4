@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace NewWarePassPort.Controllers
+namespace NetCoreWebAPI.Controllers
 {
     /// <summary>
     /// 身份验证

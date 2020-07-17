@@ -38,9 +38,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\NewarePassPort.Common\NewarePassPort.Common.csproj" />
-    <ProjectReference Include="..\NewWarePassPort.Business\NewWarePassPort.Business.csproj" />
-    <ProjectReference Include="..\NewWarePassPort.Entity\NewWarePassPort.Entity.csproj" />
+    <ProjectReference Include="..\NetCoreWebAPI.Common\NetCoreWebAPI.Common.csproj" />
+    <ProjectReference Include="..\NetCoreWebAPI.Business\NetCoreWebAPI.Business.csproj" />
+    <ProjectReference Include="..\NetCoreWebAPI.Entity\NetCoreWebAPI.Entity.csproj" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>

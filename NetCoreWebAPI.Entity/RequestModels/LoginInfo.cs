@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace NewWarePassPort.Entity.Models
+namespace NetCoreWebAPI.Entity.Models
 {
     /// <summary>
     /// 登录信息

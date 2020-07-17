@@ -1,6 +1,6 @@
 ﻿using IdentityServer4.Models;
 using IdentityServer4.Test;
-using NewWarePassPort.Business;
+using NetCoreWebAPI.Business;
 using System.Collections.Generic;
 
 namespace QuickstartIdentityServer

@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\NewWarePassPort.Business\NewWarePassPort.Business.csproj" />
+    <ProjectReference Include="..\NetCoreWebAPI.Business\NetCoreWebAPI.Business.csproj" />
   </ItemGroup>
 
 </Project>

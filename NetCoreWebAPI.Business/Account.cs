@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NewarePassPort.Common;
 using Newtonsoft.Json;
-using NewWarePassPort.Entity.Models;
+using NetCoreWebAPI.Entity.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,7 +10,7 @@ using System.Security.Cryptography;
 using System.Text;
 using static System.Net.WebRequestMethods;
 
-namespace NewWarePassPort.Business
+namespace NetCoreWebAPI.Business
 {
     public class Account
     {

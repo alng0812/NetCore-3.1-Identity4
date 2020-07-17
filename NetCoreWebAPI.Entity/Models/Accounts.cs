@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace NewWarePassPort.Entity.Models
+namespace NetCoreWebAPI.Entity.Models
 {
     public partial class Accounts
     {

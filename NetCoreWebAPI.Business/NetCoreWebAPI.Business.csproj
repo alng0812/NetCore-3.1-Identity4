@@ -16,8 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\NewarePassPort.Common\NewarePassPort.Common.csproj" />
-    <ProjectReference Include="..\NewWarePassPort.Entity\NewWarePassPort.Entity.csproj" />
+    <ProjectReference Include="..\NetCoreWebAPI.Common\NetCoreWebAPI.Common.csproj" />
+    <ProjectReference Include="..\NetCoreWebAPI.Entity\NetCoreWebAPI.Entity.csproj" />
   </ItemGroup>
 
 </Project>
