@@ -25,4 +25,8 @@
     <ProjectReference Include="..\NetCoreWebAPI.Common\NetCoreWebAPI.Common.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+
 </Project>

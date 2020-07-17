@@ -20,7 +20,6 @@
 
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Filter\" />
     <Folder Include="Service\" />
   </ItemGroup>
 
