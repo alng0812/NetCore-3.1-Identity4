@@ -1,0 +1,29 @@
+# visual studio
+.vs/
+*.user
+*.suo
+
+# c sharp
+bin/
+obj/
+Log/
+
+# asp.net
+aspnet_client/
+Web.Debug.config
+Web.Release.config
+PublishProfiles/
+
+
+# others
+compilerconfig.json.defaults
+
+*.bak
+_publish/
+/SBO.Web.Api/Log/WeChatError
+/SBO.Web.Api/Log/WeChatRequest
+/SBO.Web.Api/NoticeNotDiningUser
+/SBO.Web.Api/topsdk_1.log
+/SBO.Web.Api/log/NoticeNotDiningUser
+/SBO.Web.Api/log/Redis
+
