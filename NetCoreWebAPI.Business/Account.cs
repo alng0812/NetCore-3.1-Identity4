@@ -18,9 +18,9 @@ namespace NetCoreWebAPI.Business
         /// 获取授权客户端列表
         /// </summary>
         /// <returns></returns>
-        public List<Apps> GetApps()
-        {
+        //public List<Apps> GetApps()
+        //{
             
-        }
+        //}
     }
 }

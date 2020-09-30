@@ -40,8 +40,10 @@ namespace NetCoreWebAPI
             #endregion
 
             #region Swagger
-            //注册swagger服务,定义1个或者多个swagger文档
-            services.AddSwaggerGen(s =>
+            if (Configuration.GetSection("UseSwagger").Value == "true")
+            {
+                //注册swagger服务,定义1个或者多个swagger文档
+                services.AddSwaggerGen(s =>
             {
                 //设置swagger文档相关信息
                 s.SwaggerDoc("v1", new OpenApiInfo
@@ -82,12 +84,13 @@ namespace NetCoreWebAPI
                 var xmlModelPath = Path.Combine(AppContext.BaseDirectory, "");
                 s.IncludeXmlComments(xmlModelPath, true);
             });
+            }
             #endregion
 
             #region MySql数据库
             //连接 mysql 数据库，添加数据库上下文
-            services.AddDbContext<neware_passportContext>(options =>
-       options.UseMySQL(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<testdataContext>(options =>
+        options.UseMySQL(Configuration.GetConnectionString("DefaultConnection")));
             #endregion
 
             #region 身份认证
@@ -127,13 +130,13 @@ namespace NetCoreWebAPI
             app.UseStaticFiles();
             #region Swagger
             app.UseSwagger(opt =>
-            {
-                //opt.RouteTemplate = "api/{controller=Home}/{action=Index}/{id?}";
-            });
+        {
+            //opt.RouteTemplate = "api/{controller=Home}/{action=Index}/{id?}";
+        });
             //启用SwaggerUI中间件（htlm css js等），定义swagger json 入口
             app.UseSwaggerUI(s =>
             {
-                s.SwaggerEndpoint("/swagger/v1/swagger.json", "PassPortWebapi文档v1");
+                s.SwaggerEndpoint("/swagger/v1/swagger.json", "NetCoreWebapi文档v1");
                 s.RoutePrefix = "";
                 //注入汉化文件(3.0版本之后不支持汉化)
                 //s.InjectJavascript($"/Scripts/Swagger-zhCN.js");

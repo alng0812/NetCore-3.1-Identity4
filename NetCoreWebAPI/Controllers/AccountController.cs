@@ -24,6 +24,7 @@ namespace NetCoreWebAPI.Controllers
         /// 测试接口
         /// </summary>
         /// <returns></returns>
+        [ApiExplorerSettings(IgnoreApi = true)]
         [Authorize]
         [HttpGet]
         public IActionResult Get()

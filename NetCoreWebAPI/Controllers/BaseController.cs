@@ -40,7 +40,8 @@ namespace NetCoreWebAPI.Controllers
         {
             get
             {
-                return Account.Instance.GetAuthAppId(User.FindFirstValue("client_id"));
+                return 0;
+                //return Account.Instance.GetAuthAppId(User.FindFirstValue("client_id"));
             }
 
         }

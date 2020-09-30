@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -15,7 +16,7 @@ namespace TestPassport
         {
             try
             {
-                Console.WriteLine("0:获取Token 1：验证token 2：登录 3：注册 4：修改密码 5：修改基本资料");
+                Console.WriteLine("0:获取Token 1：验证token 2：登录 3：注册 4：修改密码 5：修改基本资料 6：值比较");
                 int Type = int.Parse(Console.ReadLine());
                 string username = string.Empty;
                 string password = string.Empty;
@@ -63,6 +64,9 @@ namespace TestPassport
                         break;
                     case 5:
                         TestIdentity4EditAcountInfo();
+                        break;
+                    case 6:
+                        TestValueEqual();
                         break;
                     default:
                         TestGetAccessToken();
@@ -253,6 +257,22 @@ namespace TestPassport
         private static async void TestIdentity4EditAcountInfo()
         {
 
+        }
+
+        private static async void TestValueEqual()
+        {
+            List<int> a = new List<int> { 1, 2, 3, 4, 5, 7, 6, 8 };
+            List<int> b = new List<int> { 9, 10, 11, 12, 13, 14, 15, 16 };
+            List<int> c = new List<int> { 1, 2, 4, 3, 5, 6, 7, 8 };
+            var aaa = a.OrderBy(a => a);
+            var ccc = a.OrderBy(c => c);
+            string aa = string.Join("", aaa);
+            string bb = string.Join("", b);
+            string cc = string.Join("", ccc);
+            Console.WriteLine(aa.Equals(bb));
+            Console.WriteLine(aa.Equals(cc));
+            //Console.WriteLine(a.SequenceEqual(aaa));
+            Console.WriteLine(aaa.SequenceEqual(ccc));
         }
     }
 }
