@@ -1,24 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using log4net.Repository.Hierarchy;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using NewarePassPort.Common;
+using NetCoreWebAPI.Common;
 using NetCoreWebAPI.Entity.Models;
-using ILoggerFactory = log4net.Repository.Hierarchy.ILoggerFactory;
+using System;
+using System.IO;
 
 namespace NetCoreWebAPI
 {

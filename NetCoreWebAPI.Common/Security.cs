@@ -1,4 +1,5 @@
-﻿using NewarePassPort.Common.Enums;
+﻿using NetCoreWebAPI.Common;
+using NewarePassPort.Common.Enums;
 using System;
 using System.IO;
 using System.Security.Cryptography;

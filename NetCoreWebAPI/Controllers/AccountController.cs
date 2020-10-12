@@ -7,6 +7,8 @@ using NetCoreWebAPI.Business;
 using NetCoreWebAPI.Entity.Models;
 using NetCoreWebAPI.Models;
 using System;
+using NetCoreWebAPI.Common;
+
 namespace NetCoreWebAPI.Controllers
 {
     public class AccountController : BaseController

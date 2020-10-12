@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace NewarePassPort.Common
+namespace NetCoreWebAPI.Common
 {
     public class AppSettings
     {

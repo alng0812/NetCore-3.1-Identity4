@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace NewarePassPort.Common
+namespace NetCoreWebAPI.Common
 {
     public static class Codec
     {
