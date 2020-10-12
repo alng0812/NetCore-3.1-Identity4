@@ -49,18 +49,18 @@ namespace QuickstartIdentityServer
         public static IEnumerable<Client> GetClientConfigList()
         {
             //从数据库获取配置文件
-            //var appInfo = GetApps();
+            var appInfo = Account.Instance.GetApps();
             List<Client> Clients = new List<Client>();
-            //foreach (var item in appInfo)
-            //{
-            //    Client client = new Client();
-            //    client.ClientId = item.AppId;
-            //    client.AllowedGrantTypes = GrantTypes.ClientCredentials;//授权类型，这里使用的是客户端凭证模式
-            //    client.ClientSecrets.Add(new Secret(item.AppKey.Sha256()));
-            //    client.AllowedScopes.Add("api");
-            //    client.AccessTokenLifetime = 36000;//配置Token 失效时间
-            //    Clients.Add(client);
-            //}
+            foreach (var item in appInfo)
+            {
+                Client client = new Client();
+                client.ClientId = item.AppId;
+                client.AllowedGrantTypes = GrantTypes.ClientCredentials;//授权类型，这里使用的是客户端凭证模式
+                client.ClientSecrets.Add(new Secret(item.AppKey.Sha256()));
+                client.AllowedScopes.Add("api");
+                client.AccessTokenLifetime = 36000;//配置Token 失效时间
+                Clients.Add(client);
+            }
             return Clients;
         }
     }

@@ -4,12 +4,12 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:53222/",
+      "applicationUrl": "http://localhost:5001/",
       "sslPort": 0
     }
   },
   "ConnectionStrings": {
-    "DefaultConnection": "server=192.168.1.100;uid=root;pwd=123456;port=3307;database=test;sslmode=None;"
+    "DefaultConnection": ""
   },
   "Logging": {
     "LogLevel": {
@@ -21,12 +21,16 @@
   "profiles": {
     "NetCoreWebAPI": {
       "commandName": "Project",
-      "applicationUrl": "http://localhost:5001"
+      "launchBrowser": true,
+      "applicationUrl": "http://localhost:5001",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
     },
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "swagger",
+      "launchUrl": "",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

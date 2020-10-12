@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace NetCoreWebAPI.Entity.Models
 {
-    public partial class testdataContext : DbContext
+    public partial class TestDataContext : DbContext
     {
-        public testdataContext()
+        public TestDataContext()
         {
         }
 
-        public testdataContext(DbContextOptions<testdataContext> options)
+        public TestDataContext(DbContextOptions<TestDataContext> options)
             : base(options)
         {
         }

@@ -98,8 +98,8 @@ namespace TestPassport
             string url = "http://localhost:5001/api/Account/GetAccessToken";
             TokenModel tokenmodel = new TokenModel
             {
-                ClientId = "Client",
-                ClientSecret = "sercet",
+                ClientId = "test",
+                ClientSecret = "20200930",
                 Scope = "api"
             };
             //string data = "{\"ClientId\" : \"Client\",\"ClientSecret\" : \"NewareAI\",\"Scope\" : \"api\"}";

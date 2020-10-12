@@ -81,7 +81,7 @@ namespace NetCoreWebAPI
                 var xmlPath = System.IO.Path.Combine(AppContext.BaseDirectory, xmlFile);
                 // 启用xml注释
                 s.IncludeXmlComments(xmlPath, true); //添加控制器层注释（true表示显示控制器注释）
-                var xmlModelPath = Path.Combine(AppContext.BaseDirectory, "");
+                var xmlModelPath = Path.Combine(AppContext.BaseDirectory, "NetCoreWebAPI.Entity.xml");
                 s.IncludeXmlComments(xmlModelPath, true);
             });
             }
@@ -89,7 +89,7 @@ namespace NetCoreWebAPI
 
             #region MySql数据库
             //连接 mysql 数据库，添加数据库上下文
-            services.AddDbContext<testdataContext>(options =>
+            services.AddDbContext<TestDataContext>(options =>
         options.UseMySQL(Configuration.GetConnectionString("DefaultConnection")));
             #endregion
 

@@ -22,7 +22,7 @@ namespace QuickstartIdentityServer
                 .AddInMemoryApiResources(Config.ApiResources)//把受保护的Api资源添加到内存中
                 .AddInMemoryClients(Config.GetClientConfigList())//客户端配置添加到内存中
                 .AddDeveloperSigningCredential()//添加证书加密方式，执行该方法，会先判断tempkey.rsa证书文件是否存在，如果不存在的话，就创建一个新的tempkey.rsa证书文件，如果存在的话，就使用此证书文件。
-                .AddResourceOwnerValidator<ResourceOwnerPasswordValidator>();
+                ;
             services.AddMvc();
         }
 

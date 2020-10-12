@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.1169
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30523.141
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCoreWebAPI", "NetCoreWebAPI\NetCoreWebAPI.csproj", "{7484A838-BED5-406B-B4E3-30D2D5989653}"
 EndProject
@@ -12,6 +12,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuickstartIdentityServer", "QuickstartIdentityServer\QuickstartIdentityServer.csproj", "{0544BE3F-6A1D-44F1-9F4A-96D3D0963ACD}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestPassport", "TestPassport\TestPassport.csproj", "{D949791B-E971-4C8A-89D1-007F53AFF721}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7484A838-BED5-406B-B4E3-30D2D5989653} = {7484A838-BED5-406B-B4E3-30D2D5989653}
+		{0544BE3F-6A1D-44F1-9F4A-96D3D0963ACD} = {0544BE3F-6A1D-44F1-9F4A-96D3D0963ACD}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCoreWebAPI.Common", "NetCoreWebAPI.Common\NetCoreWebAPI.Common.csproj", "{7DBF60EB-69A4-4922-B596-D137DADBB8C5}"
 EndProject
