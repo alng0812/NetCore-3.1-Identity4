@@ -19,11 +19,11 @@ namespace NewarePassPort.Common
             }
         }
 
-        public static void LogControllerErr(string info, Exception ex)
+        public static void LogControllerErr(string info, string parameters, Exception ex)
         {
             if (_logError.IsErrorEnabled)
             {
-                _logError.Error("控制器方法：" + info, ex);
+                _logError.Error($"控制器方法：{info}:参数为：{parameters}", ex);
             }
         }
 
@@ -48,6 +48,14 @@ namespace NewarePassPort.Common
             if (_logError.IsErrorEnabled)
             {
                 _logDebug.Debug(message);
+            }
+        }
+
+        public static void LogControllerInfo(string info, string para)
+        {
+            if (_logNormal.IsInfoEnabled)
+            {
+                _logNormal.Info($"控制器方法：{info}:参数为：{para}");
             }
         }
 

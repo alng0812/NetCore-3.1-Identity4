@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -8,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using NetCoreWebAPI.Common;
 using NetCoreWebAPI.Entity.Models;
+using NetCoreWebAPI.HangFire;
 using System;
 using System.IO;
 
@@ -100,6 +102,22 @@ namespace NetCoreWebAPI
                 });
             #endregion
 
+            #region  Hangfire定时任务
+            services.AddHangfireService();
+            #endregion
+
+            #region
+            //redis缓存
+            var section = Configuration.GetSection("Redis:Default");
+            //连接字符串
+            string _connectionString = section.GetSection("Connection").Value;
+            //实例名称
+            string _instanceName = section.GetSection("InstanceName").Value;
+            //默认数据库 
+            int _defaultDB = int.Parse(section.GetSection("DefaultDB").Value ?? "0");
+            services.AddSingleton(new RedisHelper(_connectionString, _instanceName, _defaultDB));
+            #endregion
+
             services.AddMvc();
 
             services.AddControllers();
@@ -119,6 +137,11 @@ namespace NetCoreWebAPI
                 app.UseDeveloperExceptionPage();
             }
             app.UseStaticFiles();
+
+            #region Hangfire定时任务
+            app.UseHangfireMiddleware();
+            #endregion
+
             #region Swagger
             app.UseSwagger(opt =>
         {
@@ -131,6 +154,32 @@ namespace NetCoreWebAPI
                 s.RoutePrefix = "";
                 //注入汉化文件(3.0版本之后不支持汉化)
                 //s.InjectJavascript($"/Scripts/Swagger-zhCN.js");
+            });
+            #endregion
+
+            #region 异常状态码
+            app.UseStatusCodePages(async context =>
+            {
+                context.HttpContext.Response.ContentType = "application/json;charset=utf-8";
+
+                int code = context.HttpContext.Response.StatusCode;
+                string message =
+                 code switch
+                 {
+                     401 => "未登录",
+                     403 => "访问拒绝",
+                     404 => "未找到",
+                     _ => "未知错误",
+                 };
+
+                context.HttpContext.Response.StatusCode = StatusCodes.Status200OK;
+                await context.HttpContext.Response.WriteAsync(Newtonsoft.Json.JsonConvert.SerializeObject(new
+                {
+                    isSuccess = false,
+                    code,
+                    message
+                }));
+
             });
             #endregion
 

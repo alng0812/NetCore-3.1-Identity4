@@ -11,6 +11,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Log\**" />
+    <Content Remove="Log\**" />
+    <EmbeddedResource Remove="Log\**" />
+    <None Remove="Log\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Swagger-zhCN.js" />
   </ItemGroup>
 
@@ -20,10 +27,15 @@
 
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Service\" />
+    <Folder Include="wwwroot\" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Hangfire.AspNetCore" Version="1.7.15" />
+    <PackageReference Include="Hangfire.Dashboard.Authorization" Version="3.0.0" />
+    <PackageReference Include="Hangfire.MemoryStorage" Version="1.7.0" />
+    <PackageReference Include="Hangfire.MySql.Core" Version="2.2.5" />
+    <PackageReference Include="HangFire.Redis.StackExchange" Version="1.8.4" />
     <PackageReference Include="IdentityModel" Version="4.3.0" />
     <PackageReference Include="IdentityServer4.AccessTokenValidation" Version="3.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.5" />

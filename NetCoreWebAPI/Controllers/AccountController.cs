@@ -68,7 +68,7 @@ namespace NetCoreWebAPI.Controllers
             catch (Exception ex)
             {
                 LogHelper.LogDebug("GetAccessToken:" + ex.ToString());
-                LogHelper.LogControllerErr("GetAccessToken", ex);
+                LogHelper.LogControllerErr("GetAccessToken","" ,ex);
                 apiResult.Error(ResultCode.API_Abnormal);
             }
             return new JsonResult(apiResult);

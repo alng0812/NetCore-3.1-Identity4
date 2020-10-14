@@ -16,5 +16,10 @@ namespace NetCoreWebAPI.Common
         /// </summary>
         public string MysqlServerUrl { get; set; }
 
+        /// <summary>
+        /// 文件保存地址
+        /// </summary>
+
+        public string UploadPath { get; set; }
     }
 }

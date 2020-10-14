@@ -14,12 +14,16 @@ namespace QuickstartIdentityServer
             new IdentityResources.Profile(),
          };
 
+
         public static IEnumerable<ApiScope> ApiScopes =>
             new ApiScope[]
             {
             new ApiScope("api")
             };
 
+        /// <summary>
+        /// Api资源
+        /// </summary>
         public static IEnumerable<ApiResource> ApiResources =>
             new ApiResource[]
             {
