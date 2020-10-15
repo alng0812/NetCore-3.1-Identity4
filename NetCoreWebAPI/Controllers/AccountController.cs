@@ -8,6 +8,8 @@ using NetCoreWebAPI.Entity.Models;
 using NetCoreWebAPI.Models;
 using System;
 using NetCoreWebAPI.Common;
+using log4net.Core;
+using Microsoft.Extensions.Logging;
 
 namespace NetCoreWebAPI.Controllers
 {
@@ -15,10 +17,11 @@ namespace NetCoreWebAPI.Controllers
     {
         #region <<取配置文件的一些属性>>
         public readonly AppSettings _settings;
-
-        public AccountController(IOptions<AppSettings> settings)
+        private readonly LoggerHelper _logger;
+        public AccountController(IOptions<AppSettings> settings, LoggerHelper logger)
         {
             _settings = settings.Value;
+            _logger = logger;
         }
         #endregion
 
@@ -54,21 +57,22 @@ namespace NetCoreWebAPI.Controllers
             ApiResult apiResult = new ApiResult();
             try
             {
-                string AccessToken = TokenUtil.GetToken(tokenModel.ClientId, tokenModel.ClientSecret, tokenModel.Scope, _settings.IdentityServerUrl);
+                TokenUtil client = new TokenUtil(_logger);
+                string AccessToken = client.GetToken(tokenModel.ClientId, tokenModel.ClientSecret, tokenModel.Scope, _settings.IdentityServerUrl);
                 if (string.IsNullOrEmpty(AccessToken))
                 {
                     apiResult.ErrorMessage = "无法取得token";
                     apiResult.ResultCode = ResultCode.NotToken;
-                    LogHelper.LogErr("无法取得token");
+                    _logger.LogErr("无法取得token");
                     return new JsonResult(apiResult);
                 }
-                LogHelper.LogDebug("token：" + AccessToken + "客户端Id：" + tokenModel.ClientId + "客户端秘钥：" + tokenModel.ClientSecret + "访问资源：" + tokenModel.Scope);
+                _logger.LogDebug("token：" + AccessToken + "客户端Id：" + tokenModel.ClientId + "客户端秘钥：" + tokenModel.ClientSecret + "访问资源：" + tokenModel.Scope);
                 apiResult.Data = AccessToken;
             }
             catch (Exception ex)
             {
-                LogHelper.LogDebug("GetAccessToken:" + ex.ToString());
-                LogHelper.LogControllerErr("GetAccessToken","" ,ex);
+                _logger.LogDebug("GetAccessToken:" + ex.ToString());
+                _logger.LogControllerErr("GetAccessToken", "", ex);
                 apiResult.Error(ResultCode.API_Abnormal);
             }
             return new JsonResult(apiResult);

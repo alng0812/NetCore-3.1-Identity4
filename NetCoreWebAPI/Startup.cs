@@ -10,6 +10,7 @@ using Microsoft.OpenApi.Models;
 using NetCoreWebAPI.Common;
 using NetCoreWebAPI.Entity.Models;
 using NetCoreWebAPI.HangFire;
+using NewarePassPort.Common;
 using System;
 using System.IO;
 
@@ -106,7 +107,7 @@ namespace NetCoreWebAPI
             services.AddHangfireService();
             #endregion
 
-            #region
+            #region Redis分布式缓存
             //redis缓存
             var section = Configuration.GetSection("Redis:Default");
             //连接字符串
@@ -121,6 +122,7 @@ namespace NetCoreWebAPI
             services.AddMvc();
 
             services.AddControllers();
+            services.AddTransient<LoggerHelper>();
             services.AddRouting();
         }
 
