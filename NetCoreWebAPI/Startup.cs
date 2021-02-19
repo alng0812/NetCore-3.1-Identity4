@@ -10,6 +10,7 @@ using Microsoft.OpenApi.Models;
 using NetCoreWebAPI.Common;
 using NetCoreWebAPI.Entity.Models;
 using NetCoreWebAPI.HangFire;
+using NetCoreWebAPI.Service;
 using NewarePassPort.Common;
 using System;
 using System.IO;
@@ -123,6 +124,7 @@ namespace NetCoreWebAPI
 
             services.AddControllers();
             services.AddTransient<LoggerHelper>();
+            services.AddScoped<IScopeService, scopeTest>();
             services.AddRouting();
         }
 

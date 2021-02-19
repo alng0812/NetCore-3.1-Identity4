@@ -1,17 +1,19 @@
 ﻿using log4net;
+using log4net.Core;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Reflection;
 
 namespace NewarePassPort.Common
 {
-    public static class LogHelper
-    {//log4net日志初始化 这里就读取多个配置节点
-
-        private static readonly ILog _logError = LogManager.GetLogger(Assembly.GetCallingAssembly(), "LogError");
-        private static readonly ILog _logNormal = LogManager.GetLogger(Assembly.GetCallingAssembly(), "LogNormal");
-        private static readonly ILog _logAOP = LogManager.GetLogger(Assembly.GetCallingAssembly(), "LogAOP");
-        private static readonly ILog _logDebug = LogManager.GetLogger(Assembly.GetCallingAssembly(), "LogDebug");
-        public static void LogErrException(string info, Exception ex)
+    public class LoggerHelper
+    {
+        //log4net日志初始化 这里就读取多个配置节点
+        private readonly ILog _logError = LogManager.GetLogger(Assembly.GetCallingAssembly(), "LogError");
+        private readonly ILog _logNormal = LogManager.GetLogger(Assembly.GetCallingAssembly(), "LogNormal");
+        private readonly ILog _logAOP = LogManager.GetLogger(Assembly.GetCallingAssembly(), "LogAOP");
+        private readonly ILog _logDebug = LogManager.GetLogger(Assembly.GetCallingAssembly(), "LogDebug");
+        public void LogErrException(string info, Exception ex)
         {
             if (_logError.IsErrorEnabled)
             {
@@ -19,7 +21,7 @@ namespace NewarePassPort.Common
             }
         }
 
-        public static void LogControllerErr(string info, string parameters, Exception ex)
+        public void LogControllerErr(string info, string parameters, Exception ex)
         {
             if (_logError.IsErrorEnabled)
             {
@@ -27,7 +29,7 @@ namespace NewarePassPort.Common
             }
         }
 
-        public static void LogDALErr(string info, Exception ex)
+        public void LogDALErr(string info, Exception ex)
         {
             if (_logError.IsErrorEnabled)
             {
@@ -35,7 +37,7 @@ namespace NewarePassPort.Common
             }
         }
 
-        public static void LogErr(string message)
+        public void LogErr(string message)
         {
             if (_logError.IsErrorEnabled)
             {
@@ -43,7 +45,7 @@ namespace NewarePassPort.Common
             }
         }
 
-        public static void LogDebug(string message)
+        public void LogDebug(string message)
         {
             if (_logError.IsErrorEnabled)
             {
@@ -51,7 +53,7 @@ namespace NewarePassPort.Common
             }
         }
 
-        public static void LogControllerInfo(string info, string para)
+        public void LogControllerInfo(string info, string para)
         {
             if (_logNormal.IsInfoEnabled)
             {
@@ -59,7 +61,7 @@ namespace NewarePassPort.Common
             }
         }
 
-        public static void LogNormal(string info)
+        public void LogNormal(string info)
         {
             if (_logNormal.IsInfoEnabled)
             {
@@ -67,14 +69,14 @@ namespace NewarePassPort.Common
             }
         }
 
-        public static void LogAOP(string key, string info)
+        public void LogAOP(string key, string info)
         {
             if (_logAOP.IsInfoEnabled)
             {
                 _logAOP.Info($"{key}:{info}");
             }
         }
-        public static void LogAOP(string info)
+        public void LogAOP(string info)
         {
             if (_logAOP.IsInfoEnabled)
             {

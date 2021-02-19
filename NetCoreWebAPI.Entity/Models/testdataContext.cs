@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using NetCoreWebAPI.Common;
 
 namespace NetCoreWebAPI.Entity.Models
 {
@@ -22,7 +23,8 @@ namespace NetCoreWebAPI.Entity.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseMySql("server=localhost;userid=root;pwd=123456;port=3306;database=testdata;sslmode=none", x => x.ServerVersion("8.0.20-mysql"));
+                optionsBuilder.UseMySql(ConfigHelper.GetAppSettings().MysqlServerUrl, x => x.ServerVersion("5.7.23-mysql"));
+                //optionsBuilder.UseMySql("server=192.168.1.197;userid=root;pwd=123456;port=3306;database=testdata;sslmode=none", x => x.ServerVersion("8.0.20-mysql"));
             }
         }
 

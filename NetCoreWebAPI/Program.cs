@@ -1,12 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
+ï»¿using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using System.IO;
 
 namespace NetCoreWebAPI
 {
@@ -21,14 +16,14 @@ namespace NetCoreWebAPI
             Host.CreateDefaultBuilder(args)
             .ConfigureLogging((hostingContext, builder) =>
             {
-                //¸Ã·½·¨ÐèÒªÒýÈëMicrosoft.Extensions.LoggingÃû³Æ¿Õ¼ä
-                builder.AddFilter("System", LogLevel.Error); //¹ýÂËµôÏµÍ³Ä¬ÈÏµÄÒ»Ð©ÈÕÖ¾
-                builder.AddFilter("Microsoft", LogLevel.Error);//¹ýÂËµôÏµÍ³Ä¬ÈÏµÄÒ»Ð©ÈÕÖ¾
+                //è¯¥æ–¹æ³•éœ€è¦å¼•å…¥Microsoft.Extensions.Loggingåç§°ç©ºé—´
+                builder.AddFilter("System", LogLevel.Error); //è¿‡æ»¤æŽ‰ç³»ç»Ÿé»˜è®¤çš„ä¸€äº›æ—¥å¿—
+                builder.AddFilter("Microsoft", LogLevel.Error);//è¿‡æ»¤æŽ‰ç³»ç»Ÿé»˜è®¤çš„ä¸€äº›æ—¥å¿—
 
-                //Ìí¼ÓLog4Net
+                //æ·»åŠ Log4Net
                 var path = Path.Combine(Directory.GetCurrentDirectory(), "Config/Log4net.config");
-                //²»´ø²ÎÊý£º±íÊ¾log4net.configµÄÅäÖÃÎÄ¼þ¾ÍÔÚÓ¦ÓÃ³ÌÐò¸ùÄ¿Â¼ÏÂ£¬Ò²¿ÉÒÔÖ¸¶¨ÅäÖÃÎÄ¼þµÄÂ·¾¶
-                //ÐèÒªÌí¼Ónuget°ü£ºMicrosoft.Extensions.Logging.Log4Net.AspNetCore
+                //ä¸å¸¦å‚æ•°ï¼šè¡¨ç¤ºlog4net.configçš„é…ç½®æ–‡ä»¶å°±åœ¨åº”ç”¨ç¨‹åºæ ¹ç›®å½•ä¸‹ï¼Œä¹Ÿå¯ä»¥æŒ‡å®šé…ç½®æ–‡ä»¶çš„è·¯å¾„
+                //éœ€è¦æ·»åŠ nugetåŒ…ï¼šMicrosoft.Extensions.Logging.Log4Net.AspNetCore
                 builder.AddLog4Net(path);
             }).ConfigureWebHostDefaults(webBuilder =>
                {

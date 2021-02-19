@@ -15,6 +15,9 @@ namespace QuickstartIdentityServer
          };
 
 
+        /// <summary>
+        /// api范围
+        /// </summary>
         public static IEnumerable<ApiScope> ApiScopes =>
             new ApiScope[]
             {
