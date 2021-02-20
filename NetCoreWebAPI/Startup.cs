@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+ï»¿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -14,6 +14,7 @@ using NetCoreWebAPI.Service;
 using NewarePassPort.Common;
 using System;
 using System.IO;
+using System.Linq;
 
 namespace NetCoreWebAPI
 {
@@ -29,7 +30,7 @@ namespace NetCoreWebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            #region »ñÈ¡ÅäÖÃÎÄ¼şappsettings.json
+            #region è·å–é…ç½®æ–‡ä»¶appsettings.json
             services.AddOptions();
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
             #endregion
@@ -37,19 +38,19 @@ namespace NetCoreWebAPI
             #region Swagger
             if (Configuration.GetSection("UseSwagger").Value == "true")
             {
-                //×¢²áswagger·şÎñ,¶¨Òå1¸ö»òÕß¶à¸öswaggerÎÄµµ
+                //æ³¨å†ŒswaggeræœåŠ¡,å®šä¹‰1ä¸ªæˆ–è€…å¤šä¸ªswaggeræ–‡æ¡£
                 services.AddSwaggerGen(s =>
             {
-                //ÉèÖÃswaggerÎÄµµÏà¹ØĞÅÏ¢
+                //è®¾ç½®swaggeræ–‡æ¡£ç›¸å…³ä¿¡æ¯
                 s.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    Title = "WebApiÎÄµµ",
-                    Description = "½Ó¿ÚÎÄµµ",
+                    Title = "WebApiæ–‡æ¡£",
+                    Description = "æ¥å£æ–‡æ¡£",
                     Version = "v1.0"
                 });
                 s.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
                 {
-                    Description = "ÔÚÏÂ¿òÖĞÊäÈëÇëÇóÍ·ÖĞĞèÒªÌí¼ÓJwtÊÚÈ¨Token£ºBearer Token",
+                    Description = "åœ¨ä¸‹æ¡†ä¸­è¾“å…¥è¯·æ±‚å¤´ä¸­éœ€è¦æ·»åŠ JwtæˆæƒTokenï¼šBearer Token",
                     Name = "Authorization",
                     In = ParameterLocation.Header,
                     Type = SecuritySchemeType.ApiKey,
@@ -71,55 +72,77 @@ namespace NetCoreWebAPI
                     }
             });
 
-                //»ñÈ¡xml×¢ÊÍÎÄ¼şµÄÄ¿Â¼
-                var xmlFile = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                var xmlPath = System.IO.Path.Combine(AppContext.BaseDirectory, xmlFile);
-                // ÆôÓÃxml×¢ÊÍ
-                s.IncludeXmlComments(xmlPath, true); //Ìí¼Ó¿ØÖÆÆ÷²ã×¢ÊÍ£¨true±íÊ¾ÏÔÊ¾¿ØÖÆÆ÷×¢ÊÍ£©
-                var xmlModelPath = Path.Combine(AppContext.BaseDirectory, "NetCoreWebAPI.Entity.xml");
-                s.IncludeXmlComments(xmlModelPath, true);
+                foreach (var name in Directory.GetFiles(AppContext.BaseDirectory, "*.*",
+                   SearchOption.AllDirectories).Where(f => Path.GetExtension(f).ToLower() == ".xml"))
+                {
+                    s.IncludeXmlComments(name, true);
+                }
+
+                ////è·å–xmlæ³¨é‡Šæ–‡ä»¶çš„ç›®å½•
+                //var xmlFile = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                //var xmlPath = System.IO.Path.Combine(AppContext.BaseDirectory, xmlFile);
+                //// å¯ç”¨xmlæ³¨é‡Š
+                //s.IncludeXmlComments(xmlPath, true); //æ·»åŠ æ§åˆ¶å™¨å±‚æ³¨é‡Šï¼ˆtrueè¡¨ç¤ºæ˜¾ç¤ºæ§åˆ¶å™¨æ³¨é‡Šï¼‰
+                //var xmlModelPath = Path.Combine(AppContext.BaseDirectory, "NetCoreWebAPI.Entity.xml");
+                //s.IncludeXmlComments(xmlModelPath, true);
             });
             }
             #endregion
 
-            #region MySqlÊı¾İ¿â
-            //Á¬½Ó mysql Êı¾İ¿â£¬Ìí¼ÓÊı¾İ¿âÉÏÏÂÎÄ
-            services.AddDbContext<TestDataContext>(options =>
-        options.UseMySQL(Configuration.GetConnectionString("DefaultConnection")));
+            #region MySqlæ•°æ®åº“
+            //è¿æ¥ mysql æ•°æ®åº“ï¼Œæ·»åŠ æ•°æ®åº“ä¸Šä¸‹æ–‡
+            //    services.AddDbContext<TestDataContext>(options =>
+            //options.UseMySQL(Configuration.GetConnectionString("DefaultConnection")));
+            var connectionString = Configuration.GetConnectionString("DefaultConnection");
+            ServerVersion serverVersion = ServerVersion.AutoDetect(connectionString);
+            services.AddDbContext<blogContext>(options =>
+                options.UseMySql(connectionString, serverVersion));
             #endregion
 
-            #region Éí·İÈÏÖ¤
-            //ÅäÖÃÉí·İÈÏÖ¤
+            #region èº«ä»½è®¤è¯
+            //é…ç½®èº«ä»½è®¤è¯
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
                 {
-                    //Éí·İÈÏÖ¤Æ½Ì¨µØÖ·£¨Éí·İÈÏÖ¤Ê±»áÈ¥Õâ¸öµØÖ·ÑéÖ¤tokenÊÇ·ñÓĞĞ§£©
+                    //èº«ä»½è®¤è¯å¹³å°åœ°å€ï¼ˆèº«ä»½è®¤è¯æ—¶ä¼šå»è¿™ä¸ªåœ°å€éªŒè¯tokenæ˜¯å¦æœ‰æ•ˆï¼‰
                     options.Authority = Configuration.GetSection("AppSettings").Get<AppSettings>().IdentityServerUrl;
-                    //Ò»°ãÄ¬ÈÏ£¨true£©£¬¿ª·¢»·¾³Ê±¿ÉÒÔÉèÖÃÎªfalse
+                    //ä¸€èˆ¬é»˜è®¤ï¼ˆtrueï¼‰ï¼Œå¼€å‘ç¯å¢ƒæ—¶å¯ä»¥è®¾ç½®ä¸ºfalse
                     options.RequireHttpsMetadata = false;
-                    options.TokenValidationParameters.RequireExpirationTime = true; //ÊÇ·ñĞèÒª³¬Ê±Ê±¼ä²ÎÊı
+                    options.TokenValidationParameters.RequireExpirationTime = true; //æ˜¯å¦éœ€è¦è¶…æ—¶æ—¶é—´å‚æ•°
                     //apiResource
                     options.Audience = "api";
                     options.SaveToken = true;
                 });
             #endregion
 
-            #region  Hangfire¶¨Ê±ÈÎÎñ
+            #region  Hangfireå®šæ—¶ä»»åŠ¡
             services.AddHangfireService();
             #endregion
 
-            #region Redis·Ö²¼Ê½»º´æ
-            //redis»º´æ
+            #region Redisåˆ†å¸ƒå¼ç¼“å­˜
+            //redisç¼“å­˜
             var section = Configuration.GetSection("Redis:Default");
-            //Á¬½Ó×Ö·û´®
+            //è¿æ¥å­—ç¬¦ä¸²
             string _connectionString = section.GetSection("Connection").Value;
-            //ÊµÀıÃû³Æ
+            //å®ä¾‹åç§°
             string _instanceName = section.GetSection("InstanceName").Value;
-            //Ä¬ÈÏÊı¾İ¿â 
+            //é»˜è®¤æ•°æ®åº“ 
             int _defaultDB = int.Parse(section.GetSection("DefaultDB").Value ?? "0");
             services.AddSingleton(new RedisHelper(_connectionString, _instanceName, _defaultDB));
             #endregion
 
+            #region è·¨åŸŸè¯·æ±‚
+            //é…ç½®è·¨åŸŸå¤„ç†ï¼Œå…è®¸æ‰€æœ‰æ¥æº          
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy", builder =>
+                {
+                    builder.AllowAnyOrigin() //å…è®¸ä»»ä½•æ¥æºçš„ä¸»æœºè®¿é—®
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+                });
+            });
+            #endregion
             services.AddMvc();
 
             services.AddControllers();
@@ -132,17 +155,20 @@ namespace NetCoreWebAPI
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseRouting();
-            //ÆôÓÃÉí·İÈÏÖ¤ÖĞ¼ä¼ş
+            //å…è®¸æ‰€æœ‰è·¨åŸŸï¼ŒCorsPolicyæ˜¯åœ¨ConfigureServicesæ–¹æ³•ä¸­é…ç½®çš„è·¨åŸŸç­–ç•¥åç§°
+            app.UseCors("CorsPolicy");
+            //å¯ç”¨èº«ä»½è®¤è¯ä¸­é—´ä»¶
             app.UseAuthentication();
-            //ÆôÓÃÊÚÈ¨
+            //å¯ç”¨æˆæƒ
             app.UseAuthorization();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseCors("cors");
             app.UseStaticFiles();
 
-            #region Hangfire¶¨Ê±ÈÎÎñ
+            #region Hangfireå®šæ—¶ä»»åŠ¡
             app.UseHangfireMiddleware();
             #endregion
 
@@ -151,17 +177,17 @@ namespace NetCoreWebAPI
         {
             //opt.RouteTemplate = "api/{controller=Home}/{action=Index}/{id?}";
         });
-            //ÆôÓÃSwaggerUIÖĞ¼ä¼ş£¨htlm css jsµÈ£©£¬¶¨Òåswagger json Èë¿Ú
+            //å¯ç”¨SwaggerUIä¸­é—´ä»¶ï¼ˆhtlm css jsç­‰ï¼‰ï¼Œå®šä¹‰swagger json å…¥å£
             app.UseSwaggerUI(s =>
             {
-                s.SwaggerEndpoint("/swagger/v1/swagger.json", "NetCoreWebapiÎÄµµv1");
+                s.SwaggerEndpoint("/swagger/v1/swagger.json", "NetCoreWebapiæ–‡æ¡£v1");
                 s.RoutePrefix = "";
-                //×¢Èëºº»¯ÎÄ¼ş(3.0°æ±¾Ö®ºó²»Ö§³Öºº»¯)
+                //æ³¨å…¥æ±‰åŒ–æ–‡ä»¶(3.0ç‰ˆæœ¬ä¹‹åä¸æ”¯æŒæ±‰åŒ–)
                 //s.InjectJavascript($"/Scripts/Swagger-zhCN.js");
             });
             #endregion
 
-            #region Òì³£×´Ì¬Âë
+            #region å¼‚å¸¸çŠ¶æ€ç 
             app.UseStatusCodePages(async context =>
             {
                 context.HttpContext.Response.ContentType = "application/json;charset=utf-8";
@@ -170,10 +196,10 @@ namespace NetCoreWebAPI
                 string message =
                  code switch
                  {
-                     401 => "Î´µÇÂ¼",
-                     403 => "·ÃÎÊ¾Ü¾ø",
-                     404 => "Î´ÕÒµ½",
-                     _ => "Î´Öª´íÎó",
+                     401 => "æœªç™»å½•",
+                     403 => "è®¿é—®æ‹’ç»",
+                     404 => "æœªæ‰¾åˆ°",
+                     _ => "æœªçŸ¥é”™è¯¯",
                  };
 
                 context.HttpContext.Response.StatusCode = StatusCodes.Status200OK;

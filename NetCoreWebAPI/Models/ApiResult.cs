@@ -1,4 +1,5 @@
-﻿using NewarePassPort.Common.Enums;
+﻿using NetCoreWebAPI.Common;
+using NewarePassPort.Common.Enums;
 
 namespace NetCoreWebAPI.Models
 {

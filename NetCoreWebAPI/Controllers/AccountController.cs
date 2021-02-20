@@ -1,15 +1,11 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using NetCoreWebAPI.Common;
+using NetCoreWebAPI.Models;
 using NewarePassPort.Common;
 using NewarePassPort.Common.Enums;
-using NetCoreWebAPI.Business;
-using NetCoreWebAPI.Entity.Models;
-using NetCoreWebAPI.Models;
-using System;
-using NetCoreWebAPI.Common;
-using log4net.Core;
-using Microsoft.Extensions.Logging;
 
 namespace NetCoreWebAPI.Controllers
 {

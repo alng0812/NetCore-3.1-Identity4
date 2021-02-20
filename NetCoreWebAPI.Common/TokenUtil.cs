@@ -1,6 +1,5 @@
 ﻿using IdentityModel.Client;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using System.Net.Http;
 

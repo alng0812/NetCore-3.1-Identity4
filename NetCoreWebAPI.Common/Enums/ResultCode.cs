@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace NewarePassPort.Common.Enums
+namespace NetCoreWebAPI.Common
 {
     /// <summary>
     /// 接口返回状态

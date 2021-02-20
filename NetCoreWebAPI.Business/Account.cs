@@ -40,9 +40,9 @@ namespace NetCoreWebAPI.Business
         /// 获取授权客户端列表
         /// </summary>
         /// <returns></returns>
-        public List<Apps> GetApps()
+        public List<App> GetApps()
         {
-            using (TestDataContext entity = new TestDataContext())
+            using (blogContext entity = new blogContext())
             {
                 return entity.Apps.ToList();
             }

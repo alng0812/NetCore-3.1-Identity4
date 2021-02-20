@@ -42,17 +42,21 @@ namespace QuickstartIdentityServer
                  Configuration["Certificates:Password"]));
             //services.AddIdentityServer().AddDeveloperSigningCredential();//添加证书加密方式，执行该方法，会先判断tempkey.rsa证书文件是否存在，如果不存在的话，就创建一个新的tempkey.rsa证书文件，如果存在的话，就使用此证书文件。
             services.AddMvc();
-      //      services.AddDbContextPool<TestDataContext>(options =>
-      //options.UseMySql(ConfigHelper.GetAppSettings().MysqlServerUrl,
-      //        mySqlOptions =>
-      //        {
-      //            mySqlOptions.ServerVersion(new Version(5, 7, 23), ServerType.MySql)
-      //            .EnableRetryOnFailure(
-      //            maxRetryCount: 10,
-      //            maxRetryDelay: TimeSpan.FromSeconds(30),
-      //            errorNumbersToAdd: null);
-      //        }
-      //    ));
+            //      services.AddDbContextPool<TestDataContext>(options =>
+            //options.UseMySql(ConfigHelper.GetAppSettings().MysqlServerUrl,
+            //        mySqlOptions =>
+            //        {
+            //            mySqlOptions.ServerVersion(new Version(5, 7, 23), ServerType.MySql)
+            //            .EnableRetryOnFailure(
+            //            maxRetryCount: 10,
+            //            maxRetryDelay: TimeSpan.FromSeconds(30),
+            //            errorNumbersToAdd: null);
+            //        }
+            //    ));
+            var connectionString = ConfigHelper.GetAppSettings().MysqlServerUrl;
+            ServerVersion serverVersion = ServerVersion.AutoDetect(connectionString);
+            services.AddDbContext<blogContext>(options =>
+                options.UseMySql(connectionString, serverVersion));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

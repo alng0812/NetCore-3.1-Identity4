@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
+#nullable disable
+
 namespace NetCoreWebAPI.Entity.Models
 {
-    public partial class Apps
+    public partial class App
     {
         public int Id { get; set; }
         public string AppId { get; set; }
