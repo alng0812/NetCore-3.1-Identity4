@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using NetCoreWebAPI.Business.SingalR;
 using NetCoreWebAPI.Common;
 using NetCoreWebAPI.Entity.Models;
 using NetCoreWebAPI.HangFire;
@@ -143,6 +144,7 @@ namespace NetCoreWebAPI
                 });
             });
             #endregion
+            services.AddSignalR();
             services.AddMvc();
 
             services.AddControllers();
@@ -218,6 +220,7 @@ namespace NetCoreWebAPI
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "api/{controller}/[action]");
+               endpoints.MapHub<MessageHub>("/messagehub");
             });
         }
     }

@@ -1,6 +1,9 @@
-﻿using System;
+﻿using Microsoft.AspNet.SignalR.Client;
+using Microsoft.AspNetCore.SignalR.Client;
+using System;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace TestPassport
 {
@@ -515,35 +518,102 @@ namespace TestPassport
         //    }
         //}
 
-        private static void Main(string[] args)
-        {
+        //class A
+        //{
+        //    public static int X;
+        //    static A()
+        //    {
+        //        X = B.Y + 1;
+        //    }
+        //}
+        //class B
+        //{
+        //    public static int Y = A.X + 1;
+        //    static B() { }
+        //    static void Main()
+        //    {
+        //        Console.WriteLine("X={0},Y={1}", A.X, B.Y);
+        //    }
+        //}
 
-            //    //创建实例
-            Test test = new Test();
-            //获取泛性的Type类型
-            Type objType = test.GetType();
-            //获取泛性的方法列表
-            MethodInfo[] mthodInfos = objType.GetMethods();
-            //循环方法
-            foreach (var item in mthodInfos)
+        //class A
+        //{
+        //    public A()
+        //    {
+        //        PrintFields();
+        //    }
+        //    public virtual void PrintFields() { }
+        //}
+        //class B : A
+        //{
+        //    int x = 1;
+        //    int y;
+        //    public B()
+        //    {
+        //        y = -1;
+        //    }
+        //    public override void PrintFields()
+        //    {
+        //        Console.WriteLine("x={0},y={1}", x, y);
+        //    }
+
+        //}
+        //static void Main()
+        //{
+        //    var a = new B();
+        //}
+
+
+        //private static void Main(string[] args)
+        //{
+
+        ////    //创建实例
+        //Test test = new Test();
+        ////获取泛性的Type类型
+        //Type objType = test.GetType();
+        ////获取泛性的方法列表
+        //MethodInfo[] mthodInfos = objType.GetMethods();
+        ////循环方法
+        //foreach (var item in mthodInfos)
+        //{
+        //    //获取方法的所有参数列表
+        //    var parameters = item.GetParameters();
+        //    //过滤没用方法
+        //    //1:查看是不是有参数的方法
+        //    //2:查看这个方法的返回类型是不是我们想要的
+        //    if (parameters.Any() &&
+        //        parameters[0].ParameterType == typeof(int) &&
+        //        item.ReturnType != typeof(void))
+        //    {
+        //        //调用方法
+        //        object[] parametersObj = new object[] { 5 };
+        //        //调用实例方法
+        //        //第一个参数是我们的实体，后面是我们的参数（参数是一个数组，多个参数按照顺序来传递,没有参数可以为null）
+        //        //如果我们的方法是一个静态方法 ，这个参数可以为null （不是静态的就会报错）
+        //        Console.WriteLine(item.Invoke(test, parametersObj));
+        //    }
+
+        //}
+        //}
+
+        static async Task Main(string[] args)
+        {
+            Microsoft.AspNetCore.SignalR.Client.HubConnection connection = new HubConnectionBuilder()
+                .WithUrl("http://localhost:5001/messagehub")
+                .Build();
+
+            connection.On<string, string>("ReceiveMessage", (user, message) =>
             {
-                //获取方法的所有参数列表
-                var parameters = item.GetParameters();
-                //过滤没用方法
-                //1:查看是不是有参数的方法
-                //2:查看这个方法的返回类型是不是我们想要的
-                if (parameters.Any() &&
-                    parameters[0].ParameterType == typeof(int) &&
-                    item.ReturnType != typeof(void))
-                {
-                    //调用方法
-                    object[] parametersObj = new object[] { 5 };
-                    //调用实例方法
-                    //第一个参数是我们的实体，后面是我们的参数（参数是一个数组，多个参数按照顺序来传递,没有参数可以为null）
-                    //如果我们的方法是一个静态方法 ，这个参数可以为null （不是静态的就会报错）
-                    Console.WriteLine(item.Invoke(test, parametersObj));
-                }
-            }
+                var newMessage = $"{user}: {message}";
+
+                Console.WriteLine(newMessage);
+            });
+
+            await connection.StartAsync();
+
+            await connection.InvokeAsync("SendMessage", "jack", "hello,world");
+
+            Console.ReadLine();
         }
     }
 }

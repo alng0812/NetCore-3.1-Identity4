@@ -1,6 +1,7 @@
 ﻿using NetCoreWebAPI.Entity.Models;
 using NetCoreWebAPI.Entity.ResponseModels;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace NetCoreWebAPI.Business
@@ -74,12 +75,40 @@ namespace NetCoreWebAPI.Business
                     Description = article.Description,
                     ViewCount = (int)article.ViewCount
                 };
+                var articleDetail = entity.Articles.Where(w => w.Id == Id).FirstOrDefault();
+                articleDetail.ViewCount = articleDetail.ViewCount + 1;
+                entity.SaveChanges();
                 result.Data = atticleInfo;
             }
             return result;
         }
 
+        /// <summary>
+        /// 根据类别获取文章列表
+        /// </summary>
+        /// <returns></returns>
+        public TableData GetArticlesByTypeId(int typeId)
+        {
+            var result = new TableData();
+            using (blogContext entity = new blogContext())
+            {
+                var articles = (from a in entity.Articles
+                                join b in entity.Articletypes on a.Typeid equals b.Id
+                                where a.Status == 1 && a.Typeid == typeId
+                                select new { a.Id, a.Title, a.Createdate, b.Name }).ToList().OrderByDescending(o => o.Createdate)
+                                .ToList().Select(s => new { s.Id, s.Title, Createdate = s.Createdate?.ToString("yyyy-MM-dd"), s.Name }).ToList();
+                result.Data = articles;
+            }
+            return result;
+        }
 
+        public List<Articletype> GetArticleTypes()
+        {
+            using (blogContext entity = new blogContext())
+            {
+                return entity.Articletypes.ToList();
+            }
+        }
 
     }
 }
