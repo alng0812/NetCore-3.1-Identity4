@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using Autofac;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -10,6 +11,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Minio;
+using NetCoreWebAPI.Business.MinIO;
 using NetCoreWebAPI.Business.SingalR;
 using NetCoreWebAPI.Common;
 using NetCoreWebAPI.Common.AutoMapper;
@@ -166,6 +169,17 @@ namespace NetCoreWebAPI
             services.AddTransient<LoggerHelper>();
             services.AddScoped<IScopeService, scopeTest>();
             services.AddRouting();
+        }
+
+
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+            // 注册minio文件服务客户端
+            var minioAddress = Configuration.GetValue<string>("Minio:Address");
+            var minioKey = Configuration.GetValue<string>("Minio:AppKey");
+            var minioSecret = Configuration.GetValue<string>("Minio:AppSecret");
+            builder.RegisterInstance(new MinioClient(minioAddress, minioKey, minioSecret));
+            builder.RegisterType<MinioFileStore>().As<IFileStore>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

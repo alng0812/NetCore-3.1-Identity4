@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Autofac.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System.IO;
@@ -25,7 +26,10 @@ namespace NetCoreWebAPI
                 //不带参数：表示log4net.config的配置文件就在应用程序根目录下，也可以指定配置文件的路径
                 //需要添加nuget包：Microsoft.Extensions.Logging.Log4Net.AspNetCore
                 builder.AddLog4Net(path);
-            }).ConfigureWebHostDefaults(webBuilder =>
+            })
+             .UseServiceProviderFactory(
+                    new AutofacServiceProviderFactory()) //将默认ServiceProviderFactory指定为AutofacServiceProviderFactory
+            .ConfigureWebHostDefaults(webBuilder =>
                {
                    webBuilder.UseStartup<Startup>();
                });

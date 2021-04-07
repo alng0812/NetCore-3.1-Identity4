@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using NetCoreWebAPI.Business;
+using NetCoreWebAPI.Business.MinIO;
 using NetCoreWebAPI.Common;
 using NetCoreWebAPI.Models;
 
@@ -21,11 +23,13 @@ namespace NetCoreWebAPI.Controllers
     {
         private readonly IWebHostEnvironment _env;
         private IConfiguration _configuration;
+        private IFileStore _fileStore;
 
-        public UploadController(IWebHostEnvironment env, IConfiguration configuration)
+        public UploadController(IWebHostEnvironment env, IConfiguration configuration, IFileStore fileStore)
         {
             _env = env;
             _configuration = configuration;
+            _fileStore = fileStore;
         }
 
         [HttpPut]
@@ -74,6 +78,23 @@ namespace NetCoreWebAPI.Controllers
             result.Data = filenames;
 
             return result;
+        }
+
+        /// <summary>
+        ///  批量上传文件接口
+        /// </summary>
+        /// <param name="files"></param>
+        /// <returns>服务器存储的文件信息</returns>
+        [HttpPost]
+        public async Task Upload(IFormFileCollection files)
+        {
+            //var result = new Response<IList<UploadFileResp>>();
+            foreach (var file in files)
+            {
+                await _fileStore.UploadFile(file);
+            }
+
+            //return result;
         }
     }
 }
