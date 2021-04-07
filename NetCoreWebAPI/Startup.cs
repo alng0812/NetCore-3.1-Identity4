@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using System;
+using System.IO;
+using System.Linq;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -9,13 +12,11 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using NetCoreWebAPI.Business.SingalR;
 using NetCoreWebAPI.Common;
+using NetCoreWebAPI.Common.AutoMapper;
 using NetCoreWebAPI.Entity.Models;
 using NetCoreWebAPI.HangFire;
 using NetCoreWebAPI.Service;
 using NewarePassPort.Common;
-using System;
-using System.IO;
-using System.Linq;
 
 namespace NetCoreWebAPI
 {
@@ -31,6 +32,9 @@ namespace NetCoreWebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //配置autoMapper
+            services.AddAutoMapper();
+
             #region 获取配置文件appsettings.json
             services.AddOptions();
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
@@ -144,9 +148,20 @@ namespace NetCoreWebAPI
                 });
             });
             #endregion
-            services.AddSignalR();
-            services.AddMvc();
 
+            #region SignalR
+            services.AddSignalRExtension(Configuration);
+            #endregion
+            services.AddHttpClient();
+            //services.AddHttpClient("TestClient", c =>
+            //{
+            //    var appServerUrl = Configuration.GetValue<string>("AppSetting:TestServerUrl");
+            //    c.BaseAddress = new Uri(appServerUrl);
+            //    c.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json; charset=utf-8");
+            //});
+            //services.AddSingleton<HttpClienService>();
+
+            services.AddMvc();
             services.AddControllers();
             services.AddTransient<LoggerHelper>();
             services.AddScoped<IScopeService, scopeTest>();
@@ -220,7 +235,7 @@ namespace NetCoreWebAPI
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "api/{controller}/[action]");
-               endpoints.MapHub<MessageHub>("/messagehub");
+                endpoints.MapMessageHub();
             });
         }
     }

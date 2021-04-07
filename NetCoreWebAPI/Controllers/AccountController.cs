@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using NetCoreWebAPI.Business;
+using NetCoreWebAPI.Business.Request;
 using NetCoreWebAPI.Common;
 using NetCoreWebAPI.Models;
 using NewarePassPort.Common;
@@ -71,6 +73,27 @@ namespace NetCoreWebAPI.Controllers
                 _logger.LogControllerErr("GetAccessToken", "", ex);
                 apiResult.Error(ResultCode.API_Abnormal);
             }
+            return new JsonResult(apiResult);
+        }
+
+        [HttpGet]
+        public IActionResult GetApps()
+        {
+            ApiResult apiResult = new ApiResult();
+            apiResult.Data = Account.Instance.GetApps();
+            return new JsonResult(apiResult);
+        }
+
+        /// <summary>
+        /// 配置访问权限
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public IActionResult ConfigApps(ConfigAppRequest req)
+        {
+            ApiResult apiResult = new ApiResult();
+            apiResult.Data = Account.Instance.ConfigApps(req);
             return new JsonResult(apiResult);
         }
 

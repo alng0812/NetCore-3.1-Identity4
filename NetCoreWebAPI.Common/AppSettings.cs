@@ -21,5 +21,10 @@ namespace NetCoreWebAPI.Common
         /// </summary>
 
         public string UploadPath { get; set; }
+
+        /// <summary>
+        /// signalR Redis地址
+        /// </summary>
+        public string SignalRRedis { get; set; }
     }
 }
